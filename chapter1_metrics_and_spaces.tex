@@ -1,0 +1,320 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\title{Chapter 1: On Metrics and Spaces}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{The Idea of a Metric (Distance)}
+
+The core idea is a Metric, which is simply a formal way to measure distance between any two points in a set $X$.
+
+\subsection{Definition of a Metric (The Rules of Distance)}
+
+A function $d$ that calculates distance between points $x$ and $y$ in a set $X$ must obey three fundamental, intuitive rules:
+
+\begin{enumerate}
+\item \textbf{Non-negativity \& Identity:} The distance between any two points is always greater than or equal to zero. The distance is zero only if the points are the exact same point.
+
+$d(x,y) \ge 0$, and $d(x,y) = 0$ if and only if $x=y$.
+
+\item \textbf{Symmetry:} The distance from $x$ to $y$ is the same as the distance from $y$ to $x$.
+
+$d(x,y) = d(y,x)$.
+
+\item \textbf{Triangle Inequality:} Taking a shortcut is never longer than taking a path through another point $z$. (The shortest path between two points is a straight line).
+
+$d(x,y) \le d(x,z) + d(z,y)$.
+\end{enumerate}
+
+\subsection{Metric Space}
+
+A Metric Space is simply the combination of a set of points ($X$) and the defined distance function ($d$) that measures distances between them, written as $(X, d)$.
+
+\section{Examples of Metric Spaces}
+
+A metric can also be used to define limits and continuity of functions. Different types of spaces use different formulas for distance:
+
+\begin{enumerate}
+\item \textbf{Usual Metric on $\mathbb{R}$ (Real Numbers):} This is the standard, straight-line distance you learned in algebra.
+
+$d(x,y) = |x-y|$.
+
+\item \textbf{Euclidean Metric ($d_2$) on $\mathbb{R}^k$ (k-Dimensional Space):} This is the familiar straight-line distance in 2D, 3D, and higher dimensions (Pythagorean theorem generalized).
+
+$d_{2}(x,y) = (\sum_{i=1}^{k}|x_{i}-y_{i}|^{2})^{\frac{1}{2}}$.
+
+\item \textbf{Manhattan Metric ($d_1$):} This is the "taxicab" distance, where you can only move along axes (like city blocks in Manhattan).
+
+$d_{1}(x,y) = \sum_{i=1}^{k}|x_{i}-y_{i}|$.
+
+\item \textbf{$p$-Metric ($d_p$):} A general form that includes the Euclidean ($p=2$) and Manhattan ($p=1$) metrics.
+
+$d_{p}(x,y) = (\sum_{i=1}^{k}|x_{i}-y_{i}|^{p})^{\frac{1}{p}}$ for $p \ge 1$.
+
+\item \textbf{Maximum Metric ($d_\infty$):} This is the largest single-coordinate difference, like the movement of a King on a chessboard (it's only limited by its longest move in one direction).
+
+$d_{\infty}(x,y) = \max_{1\le i\le k}|x_{i}-y_{i}|$.
+
+\item \textbf{Discrete Metric:} In this space, the distance is either 1 (if the points are different) or 0 (if they are the same). It treats every point as equally "far" from every other point.
+
+$d(x,y) = \begin{cases} 1 & \text{if } x \ne y \\ 0 & \text{otherwise} \end{cases}$.
+
+\item \textbf{Metrics on Continuous Functions ($C[a, b]$):}
+
+\begin{enumerate}
+\item $d_1$ (Area-based distance): The distance is the total area between the graphs of the two functions $f$ and $g$ over the interval $[a, b]$.
+
+$d_{1}(f,g) = \int_{a}^{b}|f(x)-g(x)|$.
+
+\item $d_\infty$ (Maximum difference distance): The distance is the single largest vertical difference between the graphs of $f$ and $g$ over the interval $[a, b]$.
+
+$d_{\infty}(f,g) = \sup_{a\le x\le b}|f(x)-g(x)|$.
+\end{enumerate}
+\end{enumerate}
+
+\section{Key Inequalities (Tools for Metrics)}
+
+These inequalities are crucial for proving the Triangle Inequality for general $d_p$ metrics (Minkowski's inequality).
+
+\begin{enumerate}
+\item \textbf{Young's Inequality (Lemma 4):} A relationship between products and sums of powers for non-negative numbers $x$ and $y$.
+
+If $x, y \ge 0$ and $p, q > 1$ satisfy $\frac{1}{p} + \frac{1}{q} = 1$, then $xy \le \frac{x^{p}}{p} + \frac{y^{q}}{q}$.
+
+\item \textbf{Hölder's Inequality:} A vector-based generalization of Young's inequality.
+
+Let $\mathbf{a}$ and $\mathbf{b}$ be vectors in $\mathbb{R}^k$. If $p, q > 1$ satisfy $\frac{1}{p} + \frac{1}{q} = 1$, then the sum of the products of their absolute components is less than or equal to the product of their $p$-norms and $q$-norms:
+
+$\sum_{i=1}^{k}|a_{i}|.|b_{i}|$ [cite\_start]$\le (\sum_{i=1}^{k}|a_{i}|^{p})^{\frac{1}{p}}(\sum_{i=1}^{k}|b_{i}|^{q})^{\frac{1}{q}}$.
+
+\item \textbf{Minkowski's Inequality (Theorem 5):} This is the formal name for the Triangle Inequality when using the $d_p$ metric.
+
+For arbitrary vectors $\mathbf{a}, \mathbf{b}, \mathbf{c}$ in $\mathbb{R}^k$ and $p > 1$, the distance from $\mathbf{a}$ to $\mathbf{b}$ is less than or equal to the distance from $\mathbf{a}$ to $\mathbf{c}$ plus the distance from $\mathbf{c}$ to $\mathbf{b}$:
+
+$d_{p}(a,b) \le d_{p}(a,c) + d_{p}(c,b)$.
+\end{enumerate}
+
+\section{Open and Closed Sets (Topology)}
+
+In a metric space $(X, d)$, we use the distance function to define geometric shapes and properties.
+
+\subsection{Open Balls}
+
+The most basic shape is the Open Ball $B(x, r)$. It's the collection of all points $y$ that are strictly less than a distance $r$ away from a center point $x$.
+
+$$B(x,r) = \{y \in X : d(x,y) < r\}$$
+
+\begin{enumerate}
+\item In $\mathbb{R}$ (usual metric): The open balls are just open intervals $B(x, r) = (x-r, x+r)$.
+
+\item In a Discrete Metric Space: If the radius is $r=1$, the open ball $B(x, 1)$ only contains the center point $x$ itself, because any other point is exactly distance 1 away (and $1 \not< 1$).
+\end{enumerate}
+
+\subsection{Bounded Set}
+
+A subset $A$ is bounded if you can completely enclose it within a single open ball $B(x, r)$.
+
+\subsection{Open Sets}
+
+A subset $U$ of $X$ is Open if for every point $x$ inside $U$, you can find a small open ball centered at $x$ that is completely contained within $U$.
+
+\subsection{Properties of Open Sets (Theorem 10)}
+
+\begin{enumerate}
+\item The empty set ($\emptyset$) and the whole space ($X$) are open.
+
+\item Any combination (union) of open sets is open.
+
+\item The intersection of a finite number of open sets is open.
+
+\item Note: The intersection of an infinite number of open sets is not necessarily open.
+
+\item Every open ball is an open set.
+
+\item A set is open if and only if you can write it as a union of open balls.
+
+\item In a discrete metric space, every subset is open.
+\end{enumerate}
+
+\subsection{Closed Balls}
+
+The Closed Ball $\overline{B(x, r)}$ is similar to the open ball, but it includes all points exactly at distance $r$ from $x$.
+
+$$\overline{B(x,r)} = \{y \in X : d(x,y) \le r\}$$
+
+\subsection{Closed Sets}
+
+A subset $A$ is Closed if its complement, $X - A$ (all points not in $A$), is an open set.
+
+\subsection{Properties of Closed Sets (Theorem 15)}
+
+These properties are logically derived from the open set properties using De Morgan's laws.
+
+\begin{enumerate}
+\item The empty set ($\emptyset$) and the whole space ($X$) are closed.
+
+\item The union of a finite number of closed sets is closed.
+
+\item Any intersection of closed sets (even infinite) is closed.
+
+\item A set $A$ is closed if and only if every sequence of points in $A$ that converges, converges to a point that is also in $A$.
+\end{enumerate}
+
+\section{Convergence of Sequences}
+
+\subsection{Sequence Convergence}
+
+A sequence of points $\{x_n\}$ in a metric space $(X, d)$ converges to a point $x \in X$ if, as you go further out in the sequence (as $n \to \infty$), the terms get arbitrarily close to $x$.
+
+Formally: For any distance $\epsilon > 0$, you can find a point $x_N$ in the sequence such that all points $x_n$ after $x_N$ are within distance $\epsilon$ of the limit point $x$.
+
+\begin{itemize}
+\item Notation: We write $\lim_{n\to\infty} x_n = x$ or $x_n \to x$.
+
+\item Uniqueness: The limit of a sequence in a metric space is unique (it can only converge to one point).
+
+\item In $\mathbb{R}^k$: A sequence of vectors converges if and only if each of its component sequences converges in $\mathbb{R}$.
+\end{itemize}
+
+\section{Continuity of Functions}
+
+Continuity relates the distances in the starting space to the distances in the ending space.
+
+\subsection{Function Continuity (Definition 16)}
+
+A function $f$ from metric space $(X, d_X)$ to $(Y, d_Y)$ is continuous at a point $x$ if small changes in the input produce small changes in the output.
+
+\begin{itemize}
+\item Formally: For any small distance $\epsilon$ in the output space ($Y$), you can find a corresponding distance $\delta$ in the input space ($X$) such that if an input $y$ is within $\delta$ distance of $x$, its output $f(y)$ is within $\epsilon$ distance of $f(x)$.
+
+\item $d_{X}(x,y) < \delta \implies d_{Y}(f(x),f(y)) < \epsilon$.
+
+\item This also means that the image of the open ball $B(x, \delta)$ is contained within the open ball $B(f(x), \epsilon)$.
+\end{itemize}
+
+\subsection{Special Cases:}
+
+\begin{itemize}
+\item A constant function $f: X \to Y$ is always continuous.
+
+\item If the input space $X$ uses the discrete metric, every function $f: X \to Y$ is continuous.
+\end{itemize}
+
+\subsection{Properties of Continuous Functions (Theorems 17, 18)}
+
+\begin{itemize}
+\item Composition: If you have two continuous functions, $f$ and $g$, applying one after the other ($g \circ f$) is also a continuous function.
+
+\item Sequence Preservation: If a function $f$ is continuous and an input sequence $\{x_n\}$ converges to $x$, then the output sequence $\{f(x_n)\}$ must converge to $f(x)$.
+
+\item Open Set Characterization: A function $f$ is continuous if and only if the pre-image of every open set $U$ in the output space $Y$ (i.e., $f^{-1}(U)$) is an open set in the input space $X$.
+\end{itemize}
+
+\subsection{Lipschitz Continuous Functions (Definition 19)}
+
+A function is Lipschitz continuous if its rate of change is absolutely bounded by a constant $L$ (it's "nicely" continuous).
+
+$d_{Y}(f(x),f(y)) \le L \cdot d_{X}(x,y)$ for some constant $L \ge 0$.
+
+\subsection{Relationship to Continuity (Theorem 20):}
+
+\begin{itemize}
+\item Every Lipschitz continuous function is automatically a continuous function.
+
+\item Differentiable Functions: If a function $f:[a,b] \to \mathbb{R}$ is differentiable and its derivative is bounded, then it is Lipschitz continuous on $[a, b]$.
+\end{itemize}
+
+\section{Convergence of Functions}
+
+When dealing with sequences of functions $\{f_n\}$, we can define convergence in two main ways.
+
+\subsection{Pointwise Convergence}
+
+A sequence of functions $\{f_n(x)\}$ converges pointwise to $f(x)$ if, for every fixed point $x$ in the domain, the sequence of numbers $\{f_n(x)\}$ converges to the number $f(x)$.
+
+This means $|f_n(x) - f(x)|$ [cite\_start]$\to 0$ as $n \to \infty$.
+
+\subsection{Uniform Convergence}
+
+A sequence of functions $f_n$ converges uniformly to $f$ on $X$ if the rate of convergence is the same for all points $x$ in $X$.
+
+Formally: For any distance $\epsilon > 0$, you can find an $N$ such that for all $n \ge N$, the maximum difference between $f_n(x)$ and $f(x)$ over the entire set $X$ is less than $\epsilon$.
+
+This means $\sup_{x \in X}|f_n - f|$ [cite\_start]$\to 0$ as $n \to \infty$.
+
+\subsection{Relationship:}
+
+If a sequence converges uniformly, it is guaranteed to converge pointwise.
+
+\subsection{Uniform Limit Theorem (Theorem 23)}
+
+If every function $f_n$ in the sequence is continuous and the sequence converges uniformly to $f$, then the limit function $f$ must also be continuous.
+
+Caution: The pointwise limit of continuous functions is not necessarily continuous (for example, $f_n(x) = x^n$ on $[0, 1]$ converges pointwise to a discontinuous function).
+
+\section{Completeness}
+
+Completeness addresses the question of whether a space has "holes" or is "whole."
+
+\subsection{Cauchy Sequence (Definition 24)}
+
+A sequence $\{x_n\}$ is called a Cauchy sequence if the terms in the sequence eventually get arbitrarily close to each other.
+
+Formally: For any $\epsilon > 0$, you can find an $N$ such that the distance between any two terms $x_m$ and $x_n$ (where $m, n \ge N$) is less than $\epsilon$.
+
+\subsection{Properties (Theorem 25):}
+
+\begin{itemize}
+\item Every convergent sequence is a Cauchy sequence.
+
+\item Every Cauchy sequence is bounded.
+
+\item Caution: A Cauchy sequence does not have to be convergent (e.g., the sequence $x_n = 1/n$ in the space $X = (0, 2)$ is Cauchy but converges to $0$, which is outside the space $X$).
+\end{itemize}
+
+\subsection{Complete Metric Space (Definition 26)}
+
+A metric space $(X, d)$ is called complete if every Cauchy sequence of points in $X$ is guaranteed to converge to a point that is also in $X$. (A complete space is a space with "no holes" that could be the limit of one of its sequences.)
+
+\subsection{Completeness Results (Theorem 29, 30)}
+
+\begin{itemize}
+\item If a Cauchy sequence has a convergent subsequence, then the full sequence also converges to the same limit.
+
+\item The Real Numbers $\mathbb{R}$ are a complete metric space.
+
+\item In $\mathbb{R}$: Every monotonic and bounded sequence converges.
+
+\item In $\mathbb{R}$: Every bounded sequence has a convergent subsequence (Bolzano-Weierstrass).
+
+\item The Euclidean Space $\mathbb{R}^k$ is complete with respect to its usual metric.
+
+\item The Space of Continuous Functions $C[a, b]$ is complete with respect to the $d_\infty$ metric.
+
+\item A subset $A$ of a complete metric space $X$ is complete if and only if $A$ is a closed set in $X$.
+\end{itemize}
+
+\subsection{Contraction Mapping (Definition 31)}
+
+A function $f: X \to X$ is a contraction if it shrinks the distance between any two points by a factor of $L < 1$.
+
+$d(f(x), f(y)) \le L \cdot d(x, y)$, where $0 \le L < 1$.
+
+Every contraction is Lipschitz continuous, and therefore also continuous.
+
+\subsection{Banach's Fixed Point Theorem (Theorem 32)}
+
+This is a powerful result: If a function $f$ is a contraction on a complete metric space $X$, then $f$ has exactly one fixed point (a unique point $x$ such that $f(x)=x$).
+
+\subsection{Completion of a Metric Space (Theorem 34)}
+
+For any metric space $(X, d)$, you can always find a larger, complete metric space $(X', d')$ that contains $X$ in a way that preserves distances (via an isometry $f: X \to X'$). This new space $X'$ is called the completion of $X$. (You can always "fill in the holes" of a metric space to make it complete.).
+
+\end{document}
